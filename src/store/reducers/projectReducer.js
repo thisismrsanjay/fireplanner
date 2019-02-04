@@ -1,18 +1,36 @@
-const initState = {
-     projects:[
-         {id:'1',title:'help me help you',content:"girl i ain't no scooby doo"},
-         {id:'2',title:'these girls',content:"the girl with all that money"},
-         {id:'3',title:'trust fund baby',content:"and all we use to dream about getting rich and getting out"},
-     ]
-}
-const projectReducer = (state=initState,action)=>{
-    switch (action.type){
-        case 'CREATE_PROJECT':
-            console.log('created project',action.project);
 
-        default:
-            return state;
-    }
+const initState ={
+  projects:[
+   
+  ]
 }
+
+
+const projectReducer = (state = initState, action) => {
+  switch (action.type) {
+    case "CREATE_PROJECT":
+      console.log("created project", action.project);
+      return state;
+    case "CREATE_PROJECT_ERROR":
+      console.log("create project error", action.err);
+      return state;
+    case "GET_PROJECTS":
+    const copy={
+      projects:[]
+    };
+    action.projects.forEach((project)=>{
+      let obj1 = project.data();
+      let obj2 = {id:project.id};
+      obj1={...obj1,...obj2};
+      copy.projects.push(obj1);
+    })
+    return {...state,...copy};
+    case "GET_PROJECTS_ERROR":
+      console.log(action.err)
+      return state;
+    default:
+      return state;
+  }
+};
 
 export default projectReducer;

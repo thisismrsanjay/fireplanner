@@ -1,7 +1,9 @@
 import React from "react";
+import {connect} from 'react-redux';
 
-export default function ProjectDetails(props) {
+const ProjectDetails=(props)=> {
     const id = props.match.params.id;
+    
   return (
     <div className="container project-detail">
       <div className="  border-secondary shadow bg-white rounded mb-3">
@@ -20,3 +22,8 @@ export default function ProjectDetails(props) {
     </div>
   );
 }
+const mapStateToProps={
+  
+}
+
+export default connect(mapStateToProps)(ProjectDetails);
