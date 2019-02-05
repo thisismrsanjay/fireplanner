@@ -1,9 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {connect} from 'react-redux';
+import {signOut} from '../../store/actions/authAction';
 
-export default function SignedInLinks() {
+//in functional components we can't uses this.props instead pass props as argument
+//props.signOut() will call itself
+const  SignedInLinks=(props)=> {
+
   return (
-         <ul className="navbar-nav  ">
+         <ul className="navbar-nav  ml-auto">
      
       
        
@@ -12,9 +17,10 @@ export default function SignedInLinks() {
         </Link>
       
       
-        <Link className="nav-link" to="/">
-          Sign Out
-        </Link>
+        <li className="nav-link" onClick={props.signOut}> 
+          SignOut   
+        </li>
+          
      
       <li className=" " href="#0">
         <button className="btn btn-info" style={{borderRadius:"50%"}}>NN</button>
@@ -27,3 +33,11 @@ export default function SignedInLinks() {
     
   );
 }
+const mapDispatchToProps =(dispatch)=>{
+  return {
+    signOut:()=>dispatch(signOut())
+  }
+}
+
+
+export default connect(null,mapDispatchToProps)(SignedInLinks);

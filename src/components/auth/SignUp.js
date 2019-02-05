@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-
+import {signUp} from '../../store/actions/authAction';
+import {connect} from 'react-redux';
 
 class Register extends React.Component {
   state = {
@@ -19,7 +19,7 @@ class Register extends React.Component {
   };
   handleSubmit = event => {
     event.preventDefault();
-    
+    this.props.signUp(this.state);
     
   };
 
@@ -98,8 +98,8 @@ class Register extends React.Component {
           </button>
         </form>
         <div style={{ maxWidth: 450, margin: "auto" }}>
-          {(this.state.error)?<div className="alert alert-dismissible alert-danger m-3">
-            {this.state.message}
+          {(this.props.authError)?<div className="alert alert-dismissible alert-danger m-3">
+            {this.props.authError}
           </div>:''}
           <h4 className="text-muted text-center m-3">
             already had an account?
@@ -113,5 +113,16 @@ class Register extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    authError: state.auth.authError
+  };
+};
 
-export default Register;
+const mapDispatchToProps = dispatch=>{
+  return {
+    signUp: (newUser)=>dispatch(signUp(newUser))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Register);

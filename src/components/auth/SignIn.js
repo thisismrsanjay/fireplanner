@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { signIn } from "../../store/actions/authAction";
+import { connect } from "react-redux";
+
+
 
 export class SignIn extends Component {
-
   state = {
     email: "",
     password: ""
@@ -13,13 +16,17 @@ export class SignIn extends Component {
   };
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
+    this.props.signIn(this.state);
   };
 
   render() {
-    const {  email, password } = this.state;
+    const { email, password } = this.state;
+    const {authError} =this.props;
+   
+    
     return (
       <div className="">
+        
         <form
           onSubmit={this.handleSubmit}
           className="alert   alert-light border-secondary "
@@ -67,8 +74,8 @@ export class SignIn extends Component {
           </button>
         </form>
         <div style={{ maxWidth: 450, margin: "auto" }}>
-          {this.state.error ? (
-            <div className="alert  alert-danger m-3">{this.state.message}</div>
+          {authError ? (
+            <div className="alert  alert-danger m-3">{authError}</div>
           ) : (
             ""
           )}
@@ -83,4 +90,20 @@ export class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: creds => dispatch(signIn(creds))
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    authError: state.auth.authError,
+    user:state.auth.firebase
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignIn);

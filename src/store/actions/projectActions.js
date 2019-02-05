@@ -46,6 +46,31 @@ export const getProjects = () => {
   };
 };
 
+export const getProject =(projectId)=>{
+  return (dispatch)=>{
+    var docRef = db.collection("projects").doc(projectId);
+    docRef.get().then(doc=>{
+      if(doc.exists){
+        dispatch({
+          type:"GET_PROJECT",
+          doc
+        })
+      }else{
+        dispatch({
+          type:"GET_PROJECT_ERROR",
+          err:"No such document"
+        })
+      }
+    })
+    .catch(err=>{
+      dispatch({
+        type:"GET_PROJECT_ERROR",
+        err
+      })
+    })
+  }
+}
+
 //earlier actions were just objects so we don't need to create inidvidual file for them
 //thunk allows us pass functions as actions
 // export const createProject = (project)=>{

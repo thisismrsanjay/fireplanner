@@ -13,7 +13,7 @@ export default function SignedOutLinks() {
       
       
         <Link className="nav-link" to="/signin">
-          LogIn
+          SignIn
         </Link>
      
   

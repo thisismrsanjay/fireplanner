@@ -3,7 +3,7 @@ import Notification from "./Notification";
 import ProjectList from "../projects/ProjectList";
 import { connect } from "react-redux";
 import {getProjects} from '../../store/actions/projectActions';
-
+import {Redirect} from 'react-router-dom';
 
 class DashBoard extends Component {
  
@@ -13,7 +13,10 @@ class DashBoard extends Component {
   }
 
   render() {
-    const { project } = this.props;
+    const { project ,user} = this.props;
+
+    if(!user) return <Redirect to='/signin'/>
+
     return (
       <div>
         <div className="dashboard container">
@@ -33,7 +36,8 @@ class DashBoard extends Component {
 
 const mapStateToProps = state => {
   return {
-    project: state.project.projects
+    project: state.project.projects,
+    user : state.auth.firebase
   };
 };
 

@@ -13,7 +13,7 @@
 *[] Dashboard-> ProjectList Notification
 
 
-
+* how to load page  ? in app get State.auth.firebase if exists then loading 
 
 Projects Collection   
 -title  
@@ -28,3 +28,16 @@ Users Collection
 
 Notification Collection
 -info about notification
+
+
+Firebase Authentication 
+Firebase Auth Service   
+-Email                  
+-UID                    
+-Photo URL              
+-display name           
+Firestore Users Collection    
+   -it will take uid and store other settings
+    -initials  
+    -firstname   
+    -lastName  

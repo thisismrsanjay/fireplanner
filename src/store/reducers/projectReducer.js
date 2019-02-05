@@ -1,10 +1,7 @@
-
-const initState ={
-  projects:[
-   
-  ]
-}
-
+const initState = {
+  projects: [],
+  project: []
+};
 
 const projectReducer = (state = initState, action) => {
   switch (action.type) {
@@ -15,19 +12,26 @@ const projectReducer = (state = initState, action) => {
       console.log("create project error", action.err);
       return state;
     case "GET_PROJECTS":
-    const copy={
-      projects:[]
-    };
-    action.projects.forEach((project)=>{
-      let obj1 = project.data();
-      let obj2 = {id:project.id};
-      obj1={...obj1,...obj2};
-      copy.projects.push(obj1);
-    })
-    return {...state,...copy};
+      const copy = {
+        projects: []
+      };
+      action.projects.forEach(project => {
+        let obj1 = project.data();
+        let obj2 = { id: project.id };
+        obj1 = { ...obj1, ...obj2 };
+        copy.projects.push(obj1);
+      });
+      return { ...state, ...copy };
     case "GET_PROJECTS_ERROR":
-      console.log(action.err)
+      console.log(action.err);
       return state;
+    case "GET_PROJECT":
+      const copy1 = {
+        project: action.doc.data()
+      };
+      return { ...state, ...copy1 };
+    case "GET_PROJECT_ERROR":
+      return action.err;
     default:
       return state;
   }
